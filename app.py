@@ -8,9 +8,16 @@ import csv
 import io
 import random
 import math
+import shutil
 
 BASE_DIR = Path(__file__).resolve().parent
-DB_PATH = BASE_DIR / 'air_quality.db'
+
+SOURCE_DB_PATH = BASE_DIR / "air_quality.db"
+DB_PATH = Path("/tmp/air_quality.db")
+
+# Copy the bundled database to a writable location on startup
+if SOURCE_DB_PATH.exists() and not DB_PATH.exists():
+    shutil.copy2(SOURCE_DB_PATH, DB_PATH)
 
 app = Flask(__name__)
 app.secret_key = 'change-this-secret-in-production'
