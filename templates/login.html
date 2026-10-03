@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | AIR INDIA</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(0, 119, 182, 0.20), transparent 30%),
+                radial-gradient(circle at 85% 80%, rgba(0, 166, 90, 0.16), transparent 30%),
+                linear-gradient(135deg, #eaf7fc, #f7fcfa);
+            color: #17202a;
+            overflow-x: hidden;
+        }
+
+        /* Background decorative circles */
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(2px);
+            z-index: -1;
+        }
+
+        body::before {
+            width: 380px;
+            height: 380px;
+            background: rgba(0, 119, 182, 0.08);
+            top: -120px;
+            left: -100px;
+        }
+
+        body::after {
+            width: 420px;
+            height: 420px;
+            background: rgba(0, 166, 90, 0.07);
+            bottom: -160px;
+            right: -120px;
+        }
+
+        .auth {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 18px;
+        }
+
+        .auth-wrapper {
+            width: min(980px, 100%);
+            min-height: 590px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow:
+                0 25px 70px rgba(15, 23, 42, 0.15),
+                0 5px 20px rgba(0, 119, 182, 0.08);
+            backdrop-filter: blur(12px);
+        }
+
+        /* LEFT SIDE */
+
+        .auth-left {
+            position: relative;
+            padding: 55px 45px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            background:
+                linear-gradient(145deg, #0057a8 0%, #0077b6 55%, #0096c7 100%);
+        }
+
+        .auth-left::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 50%;
+            right: -120px;
+            top: -80px;
+        }
+
+        .auth-left::after {
+            content: "";
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 50%;
+            left: -260px;
+            bottom: -220px;
+        }
+
+        .brand-area,
+        .feature-area {
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-logo {
+            width: 76px;
+            height: 76px;
+            border-radius: 20px;
+            background: white;
+            display: grid;
+            place-items: center;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand-logo span {
+            font-size: 38px;
+        }
+
+        .brand-area h1 {
+            font-size: 38px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .brand-area p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.9);
+            max-width: 360px;
+        }
+
+        .feature-area {
+            margin-top: 40px;
+        }
+
+        .feature-area h3 {
+            font-size: 17px;
+            margin-bottom: 16px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 12px 0;
+            font-size: 14px;
+            color: rgba(255,255,255,0.94);
+        }
+
+        .feature-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.16);
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+        }
+
+        /* RIGHT SIDE */
+
+        .auth-right {
+            padding: 55px 52px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .welcome {
+            margin-bottom: 30px;
+        }
+
+        .welcome .eyebrow {
+            color: #0077b6;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .welcome h2 {
+            font-size: 32px;
+            margin: 7px 0;
+            color: #17202a;
+        }
+
+        .welcome p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .error {
+            background: #fff1f2;
+            color: #be123c;
+            border: 1px solid #fecdd3;
+            padding: 11px 13px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 7px;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        .auth-card input {
+            width: 100%;
+            padding: 13px 14px 13px 43px;
+            border: 1px solid #d5dee7;
+            border-radius: 11px;
+            background: #f8fafc;
+            color: #17202a;
+            font-size: 14px;
+            transition: 0.2s ease;
+            outline: none;
+        }
+
+        .auth-card input:focus {
+            background: white;
+            border-color: #0284c7;
+            box-shadow: 0 0 0 4px rgba(2,132,199,0.10);
+        }
+
+        .login-btn {
+            width: 100%;
+            border: none;
+            border-radius: 11px;
+            padding: 14px;
+            margin-top: 8px;
+            background: linear-gradient(100deg, #0069a6, #008bc4);
+            color: white;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(0,119,182,0.22);
+            transition: 0.2s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(0,119,182,0.30);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .signup {
+            text-align: center;
+            margin-top: 22px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .signup a {
+            color: #0077b6;
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        .signup a:hover {
+            text-decoration: underline;
+        }
+
+        .demo-box {
+            margin-top: 24px;
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 11px;
+            padding: 12px;
+            text-align: center;
+            font-size: 12px;
+            color: #475569;
+        }
+
+        .demo-box strong {
+            display: block;
+            color: #0369a1;
+            margin-bottom: 4px;
+        }
+
+        .security {
+            margin-top: 20px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 760px) {
+
+            .auth {
+                padding: 15px;
+            }
+
+            .auth-wrapper {
+                grid-template-columns: 1fr;
+                min-height: auto;
+                border-radius: 22px;
+            }
+
+            .auth-left {
+                padding: 35px 28px;
+                min-height: 300px;
+            }
+
+            .brand-area h1 {
+                font-size: 30px;
+            }
+
+            .feature-area {
+                margin-top: 25px;
+            }
+
+            .feature {
+                margin: 8px 0;
+            }
+
+            .auth-right {
+                padding: 35px 28px;
+            }
+
+            .welcome h2 {
+                font-size: 27px;
+            }
+        }
+
+        @media (max-width: 420px) {
+
+            .auth-left {
+                padding: 30px 22px;
+            }
+
+            .auth-right {
+                padding: 30px 22px;
+            }
+
+            .brand-logo {
+                width: 65px;
+                height: 65px;
+            }
+
+            .brand-area h1 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="auth">
+
+    <div class="auth-wrapper">
+
+        <!-- LEFT PANEL -->
+        <div class="auth-left">
+
+            <div class="brand-area">
+
+                <div class="brand-logo">
+                    <img
+                        src="{{ url_for('static', filename='images/logo.png') }}"
+                        alt="AIR INDIA Logo"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                    >
+                    <span style="display:none;">🇮🇳</span>
+                </div>
+
+                <h1>AIR INDIA</h1>
+
+                <p>
+                    Smart Pan-India Air Quality Monitoring &
+                    Analytics Platform
+                </p>
+
+            </div>
+
+            <div class="feature-area">
+
+                <h3>Intelligent Environmental Monitoring</h3>
+
+                <div class="feature">
+                    <div class="feature-icon">🗺️</div>
+                    <span>Live India air-quality monitoring</span>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <span>MQ2 • MQ3 • MQ135 sensor analytics</span>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <span>AI-powered air-quality insights</span>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🚨</div>
+                    <span>Smart anomaly & pollution alerts</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT PANEL -->
+        <div class="auth-right">
+
+            <div class="welcome">
+
+                <span class="eyebrow">NATIONAL SENSOR NETWORK</span>
+
+                <h2>Welcome Back 👋</h2>
+
+                <p>
+                    Sign in to access your smart air-quality
+                    monitoring dashboard.
+                </p>
+
+            </div>
+
+
+            {% if error %}
+            <div class="error">
+                ⚠️ {{ error }}
+            </div>
+            {% endif %}
+
+
+            <form method="post">
+
+                <div class="form-group">
+
+                    <label for="email">Email Address</label>
+
+                    <div class="input-box">
+
+                        <span class="input-icon"></span>
+
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">Password</label>
+
+                    <div class="input-box">
+
+                        <span class="input-icon"></span>
+
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button class="login-btn" type="submit">
+                    Sign In →
+                </button>
+
+            </form>
+
+
+            <div class="signup">
+                New user?
+                <a href="/signup">Create an account</a>
+            </div>
+
+
+            <div class="demo-box">
+
+                <strong>🔐 Demo Access</strong>
+
+                Email: admin@airindia.local<br>
+                Password: admin123
+
+            </div>
+
+
+            <div class="security">
+                🛡️ Secure access to AIR INDIA monitoring platform
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

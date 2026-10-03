@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AIR INDIA | Smart Pan-India Air Monitoring</title>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Leaflet -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Leaflet Heatmap -->
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+</head>
+
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <!-- AIR INDIA LOGO -->
+        <div class="brand-mark">
+
+            <img
+                src="{{ url_for('static', filename='images/logo.png') }}"
+                alt="AIR INDIA Air Quality Logo"
+            >
+
+        </div>
+
+
+        <div class="brand-text">
+
+            <h1>AIR INDIA</h1>
+
+            <p>
+                Smart Pan-India Air Quality Monitoring & Analytics
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="userbox">
+
+        👤
+        {{ current_user.name if current_user else 'User' }}
+
+        ·
+
+        <a href="/logout">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav class="nav">
+
+    <a class="active"
+       href="/dashboard">
+        Dashboard
+    </a>
+
+    <a href="#smart">
+        Smart Insights
+    </a>
+
+    <a href="#analytics">
+        Analytics
+    </a>
+
+    <a href="#route">
+        Clean Air Route
+    </a>
+
+    <a href="#assistant">
+        Air AI
+    </a>
+
+    <a href="#compare">
+        Compare
+    </a>
+
+    <a href="#alerts">
+        Alerts
+    </a>
+
+    <a href="/download_csv">
+        Export CSV
+    </a>
+
+</nav>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div>
+
+        <span class="eyebrow">
+            NATIONAL SENSOR NETWORK
+        </span>
+
+        <h2>
+            Intelligent Air Monitoring Across India 🇮🇳
+        </h2>
+
+        <p>
+            Live station data, MQ sensor analytics,
+            anomaly detection, route intelligence
+            and smart air-quality insights.
+        </p>
+
+    </div>
+
+
+    <div id="clock"
+         class="clock">
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LOCATION SELECTORS
+===================================================== -->
+
+<section class="selectors card">
+
+    <div>
+
+        <label for="stateSelect">
+            State
+        </label>
+
+        <select id="stateSelect">
+        </select>
+
+    </div>
+
+
+    <div>
+
+        <label for="citySelect">
+            City
+        </label>
+
+        <select id="citySelect">
+        </select>
+
+    </div>
+
+
+    <div>
+
+        <label for="stationSelect">
+            Monitoring Station
+        </label>
+
+        <select id="stationSelect">
+        </select>
+
+    </div>
+
+
+    <button id="myLocationBtn"
+            type="button">
+
+        📍 My Location
+
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     NATIONAL STATISTICS
+===================================================== -->
+
+<section class="national-grid"
+         id="nationalStats">
+
+    <div class="metric">
+
+        <span>
+            States
+        </span>
+
+        <b id="statesCount">
+            0
+        </b>
+
+    </div>
+
+
+    <div class="metric">
+
+        <span>
+            Cities
+        </span>
+
+        <b id="citiesCount">
+            0
+        </b>
+
+    </div>
+
+
+    <div class="metric">
+
+        <span>
+            Monitoring Stations
+        </span>
+
+        <b id="stationsCount">
+            0
+        </b>
+
+    </div>
+
+
+    <div class="metric">
+
+        <span>
+            Online Sensors
+        </span>
+
+        <b id="onlineCount">
+            0
+        </b>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MAP + CURRENT AQI
+===================================================== -->
+
+<section class="top-section">
+
+
+    <!-- MAP -->
+
+    <div class="map-box card">
+
+        <div class="section-head">
+
+            <div>
+
+                <h2>
+                    🇮🇳 Live India Monitoring Map
+                </h2>
+
+                <small>
+                    Markers show current AQI •
+                    heat layer shows sensor intensity
+                </small>
+
+            </div>
+
+            <span class="pill">
+                ● Live
+            </span>
+
+        </div>
+
+
+        <div id="map">
+        </div>
+
+
+        <div class="map-actions">
+
+            <button id="toggleHeatBtn"
+                    class="ghost-btn"
+                    type="button">
+
+                🔥 Toggle Heatmap
+
+            </button>
+
+
+            <span>
+                🟢 Good ·
+                🟡 Satisfactory ·
+                🟠 Moderate ·
+                🔴 Poor ·
+                🟣 Very Poor ·
+                ⚫ Severe
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- CURRENT AQI -->
+
+    <div class="aqi-box card">
+
+        <h2>
+            Current AQI
+        </h2>
+
+
+        <div class="aqi-circle">
+
+            <span id="aqiValue">
+                --
+            </span>
+
+            <small>
+                AQI
+            </small>
+
+        </div>
+
+
+        <div id="status"
+             class="status">
+
+            Select a station
+
+        </div>
+
+
+        <p id="aqiMessage"
+           class="message">
+
+            Choose a monitoring station
+            to view live data.
+
+        </p>
+
+
+        <!-- ENVIRONMENT -->
+
+        <div class="environment">
+
+            <div>
+
+                <b id="temperature">
+                    --
+                </b>
+
+                <span>
+                    Temperature °C
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <b id="humidity">
+                    --
+                </b>
+
+                <span>
+                    Humidity %
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <b id="wind">
+                    --
+                </b>
+
+                <span>
+                    Wind m/s
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- STATION -->
+
+        <div class="station-info">
+
+            <p>
+                <b>Station:</b>
+
+                <span id="stationName">
+                    --
+                </span>
+            </p>
+
+
+            <p>
+                <b>Location:</b>
+
+                <span id="locationName">
+                    --
+                </span>
+            </p>
+
+
+            <p>
+                <b>Updated:</b>
+
+                <span id="lastUpdated">
+                    --
+                </span>
+            </p>
+
+        </div>
+
+
+        <button id="explainBtn"
+                class="primary-wide"
+                type="button">
+
+            🔍 Explain My AQI
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SMART INSIGHTS
+===================================================== -->
+
+<section class="smart-grid"
+         id="smart">
+
+
+    <!-- AIRSAFE -->
+
+    <div class="smart-card">
+
+        <div class="smart-title">
+
+            <span>
+                🛡️ AirSafe Score
+            </span>
+
+            <small>
+                Project-defined score
+            </small>
+
+        </div>
+
+
+        <div class="score-row">
+
+            <strong id="airSafeScore">
+                --
+            </strong>
+
+            <span id="airSafeStatus">
+                Select a station
+            </span>
+
+        </div>
+
+
+        <div class="progress">
+
+            <i id="airSafeBar">
+            </i>
+
+        </div>
+
+    </div>
+
+
+    <!-- SENSOR HEALTH -->
+
+    <div class="smart-card">
+
+        <div class="smart-title">
+
+            <span>
+                🔧 Sensor Health
+            </span>
+
+            <small>
+                MQ sensor quality
+            </small>
+
+        </div>
+
+
+        <div class="health-grid">
+
+            <div>
+
+                <b id="healthMq2">
+                    --
+                </b>
+
+                <span>
+                    MQ2
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <b id="healthMq3">
+                    --
+                </b>
+
+                <span>
+                    MQ3
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <b id="healthMq135">
+                    --
+                </b>
+
+                <span>
+                    MQ135
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="overall-health">
+
+            Overall
+
+            <b id="healthOverall">
+                --
+            </b>%
+
+        </div>
+
+    </div>
+
+
+    <!-- EVENT DETECTION -->
+
+    <div class="smart-card">
+
+        <div class="smart-title">
+
+            <span>
+                🚨 Pollution Event Detection
+            </span>
+
+            <small>
+                MQ pattern changes
+            </small>
+
+        </div>
+
+
+        <div id="eventBox"
+             class="smart-content">
+
+            Select a station
+            to analyse events.
+
+        </div>
+
+    </div>
+
+
+    <!-- ANOMALY -->
+
+    <div class="smart-card">
+
+        <div class="smart-title">
+
+            <span>
+                ⚠️ Sensor Anomaly Detection
+            </span>
+
+            <small>
+                Unusual readings
+            </small>
+
+        </div>
+
+
+        <div id="anomalyBox"
+             class="smart-content">
+
+            Select a station
+            to analyse anomalies.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SMART TOOLS
+===================================================== -->
+
+<section class="two-col"
+         id="smartTools">
+
+
+    <!-- BEST TIME -->
+
+    <div class="card">
+
+        <div class="section-head">
+
+            <h2>
+                🌤️ Best Time to Go Outside
+            </h2>
+
+            <span class="mini-label">
+                Based on recent station history
+            </span>
+
+        </div>
+
+
+        <div id="bestTime"
+             class="time-list">
+
+            <p>
+                Select a station.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- EXPLAIN AQI -->
+
+    <div class="card">
+
+        <div class="section-head">
+
+            <h2>
+                🔍 Explain My AQI
+            </h2>
+
+            <span class="mini-label">
+                Live station interpretation
+            </span>
+
+        </div>
+
+
+        <div id="explanation"
+             class="explanation">
+
+            <p>
+                Select a station or click
+                Explain My AQI.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MQ ANALYTICS
+===================================================== -->
+
+<section class="card"
+         id="analytics">
+
+    <div class="section-head">
+
+        <div>
+
+            <h2>
+                📊 MQ2 / MQ3 / MQ135 Analytics
+            </h2>
+
+            <small>
+                Sensor values over time.
+                AQI and PM values are excluded.
+            </small>
+
+        </div>
+
+
+        <select id="rangeSelect">
+
+            <option value="24">
+                Last 24 readings
+            </option>
+
+            <option value="48">
+                Last 48 readings
+            </option>
+
+            <option value="100">
+                Last 100 readings
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="chart-wrap">
+
+        <canvas id="trendChart">
+        </canvas>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CLEAN AIR ROUTE
+===================================================== -->
+
+<section class="card"
+         id="route">
+
+    <div class="section-head">
+
+        <div>
+
+            <h2>
+                🛣️ Clean Air Route
+            </h2>
+
+            <small>
+                Compares route alternatives using
+                nearby station AQI as a project-defined
+                exposure indicator.
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="route-form">
+
+        <input
+            id="routeFrom"
+            type="text"
+            placeholder="From — e.g. Bhubaneswar"
+        >
+
+
+        <input
+            id="routeTo"
+            type="text"
+            placeholder="To — e.g. Cuttack"
+        >
+
+
+        <button id="routeBtn"
+                class="primary-btn"
+                type="button">
+
+            Find Cleaner Route
+
+        </button>
+
+    </div>
+
+
+    <div id="routeResult"
+         class="route-result">
+
+        <p>
+            Enter two locations
+            to calculate a route.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     AI ASSISTANT + ALERTS
+===================================================== -->
+
+<section class="two-col"
+         id="assistant">
+
+
+    <!-- AI -->
+
+    <div class="card ai-card">
+
+        <div class="section-head">
+
+            <div>
+
+                <h2>
+                    🤖 Air AI Assistant
+                </h2>
+
+                <small>
+                    Answers using the selected
+                    station's project data.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div id="chatMessages"
+             class="chat-messages">
+
+            <div class="bot-msg">
+
+                Hi! Ask me about the current AQI,
+                sensors, anomalies, AirSafe Score,
+                outdoor timing or comparison.
+
+            </div>
+
+        </div>
+
+
+        <div class="chat-form">
+
+            <input
+                id="aiQuestion"
+                type="text"
+                placeholder="e.g. Explain the current air quality"
+                autocomplete="off"
+            >
+
+
+            <button id="aiSend"
+                    class="primary-btn"
+                    type="button">
+
+                Ask
+
+            </button>
+
+        </div>
+
+
+        <div class="quick-questions">
+
+            <button
+                type="button"
+                data-q="Is it safe to go outside?">
+
+                Outdoor?
+
+            </button>
+
+
+            <button
+                type="button"
+                data-q="Explain my AQI">
+
+                Explain AQI
+
+            </button>
+
+
+            <button
+                type="button"
+                data-q="Show sensor readings">
+
+                Sensors
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ALERTS -->
+
+    <div class="card"
+         id="alerts">
+
+        <div class="section-head">
+
+            <h2>
+                🚨 Recent Alerts
+            </h2>
+
+            <span class="mini-label">
+                Latest 20
+            </span>
+
+        </div>
+
+
+        <div id="alertsList">
+
+            <p>
+                No recent alerts.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SENSOR COMPARISON
+===================================================== -->
+
+<section class="card"
+         id="compare">
+
+    <div class="section-head">
+
+        <div>
+
+            <h2>
+                📊 MQ Sensor Comparison
+            </h2>
+
+            <small>
+                Compare up to five monitoring stations.
+            </small>
+
+        </div>
+
+
+        <button
+            class="small-btn"
+            id="compareBtn"
+            type="button">
+
+            Compare Selected
+
+        </button>
+
+    </div>
+
+
+    <div id="compareList"
+         class="compare-list">
+
+    </div>
+
+
+    <div id="compareResult">
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    © 2026 Air India —
+    Smart Pan-India Air Quality Monitoring Platform
+    · IoT + GIS + Analytics + ML
+
+</footer>
+
+
+<!-- =====================================================
+     MAIN JAVASCRIPT
+===================================================== -->
+
+<script src="{{ url_for('static', filename='script.js') }}">
+</script>
+
+</body>
+
+</html>

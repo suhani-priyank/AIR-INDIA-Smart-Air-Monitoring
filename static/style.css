@@ -1,0 +1,1415 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+
+body {
+    background: #eef6fa;
+    color: #17202a;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.topbar {
+    background: linear-gradient(
+        100deg,
+        #0057a8,
+        #0096c7
+    );
+
+    color: #fff;
+
+    padding: 14px 28px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+/* LOGO BOX */
+
+.brand-mark {
+    width: 78px;
+    height: 78px;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    background: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.18);
+}
+
+
+.brand-mark img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+.brand-text h1 {
+    font-size: 30px;
+    line-height: 1.1;
+}
+
+
+.brand-text p {
+    margin-top: 4px;
+    opacity: 0.92;
+}
+
+
+.userbox {
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+
+.userbox a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+
+.userbox a:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.nav {
+    background: #fff;
+
+    padding: 12px 25px;
+
+    display: flex;
+    gap: 22px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.08);
+
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+
+.nav a {
+    text-decoration: none;
+    color: #234;
+
+    font-weight: 650;
+
+    transition: 0.2s;
+}
+
+
+.nav a.active,
+.nav a:hover {
+    color: #0077b6;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    padding: 26px 3%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+    gap: 20px;
+}
+
+
+.eyebrow {
+    font-size: 12px;
+
+    font-weight: 800;
+
+    color: #0077b6;
+
+    letter-spacing: 1.5px;
+}
+
+
+.hero h2 {
+    font-size: 30px;
+
+    margin-top: 5px;
+}
+
+
+.hero p {
+    color: #64748b;
+
+    margin-top: 6px;
+
+    max-width: 850px;
+
+    line-height: 1.5;
+}
+
+
+.clock {
+    font-weight: 700;
+
+    color: #334155;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.card {
+    background: #fff;
+
+    border-radius: 20px;
+
+    padding: 20px;
+
+    box-shadow:
+        0 6px 22px rgba(18, 48, 65, 0.08);
+
+    margin: 0 3% 20px;
+}
+
+
+/* =====================================================
+   SELECTORS
+===================================================== */
+
+.selectors {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr 1.4fr auto;
+
+    gap: 14px;
+
+    align-items: end;
+}
+
+
+.selectors label {
+    display: block;
+
+    font-weight: 700;
+
+    margin-bottom: 6px;
+}
+
+
+.selectors select,
+.selectors button,
+.section-head select,
+.route-form input,
+.chat-form input {
+    width: 100%;
+
+    padding: 11px;
+
+    border: 1px solid #ccd6df;
+
+    border-radius: 10px;
+
+    background: #fff;
+
+    font-size: 14px;
+}
+
+
+.selectors button,
+.small-btn,
+.primary-btn {
+    background: #0077b6;
+
+    color: #fff;
+
+    border: 0;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    padding: 11px 16px;
+
+    border-radius: 10px;
+
+    transition: 0.2s;
+}
+
+
+.selectors button:hover,
+.small-btn:hover,
+.primary-btn:hover {
+    background: #005f91;
+}
+
+
+/* =====================================================
+   NATIONAL STATS
+===================================================== */
+
+.national-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin: 0 3% 20px;
+}
+
+
+.metric {
+    background: #fff;
+
+    padding: 20px;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 3px 14px rgba(18, 48, 65, 0.08);
+}
+
+
+.metric span {
+    display: block;
+
+    color: #64748b;
+
+    margin-bottom: 4px;
+}
+
+
+.metric b {
+    font-size: 30px;
+
+    color: #0057a8;
+}
+
+
+/* =====================================================
+   MAP + AQI
+===================================================== */
+
+.top-section {
+    display: grid;
+
+    grid-template-columns:
+        1.7fr 1fr;
+
+    gap: 20px;
+
+    margin: 0 3% 20px;
+}
+
+
+.top-section .card {
+    margin: 0;
+}
+
+
+.section-head {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+}
+
+
+.section-head small {
+    display: block;
+
+    color: #64748b;
+
+    margin-top: 3px;
+}
+
+
+.map-box #map {
+    height: 560px;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+}
+
+
+.map-actions {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    align-items: center;
+
+    margin-top: 10px;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+.pill {
+    background: #e7f8ef;
+
+    color: #00864a;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+.ghost-btn {
+    border: 1px solid #b7c8d5;
+
+    background: #fff;
+
+    padding: 8px 12px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+}
+
+
+.ghost-btn:hover {
+    background: #f1f7fa;
+}
+
+
+/* =====================================================
+   AQI
+===================================================== */
+
+.aqi-box {
+    text-align: center;
+}
+
+
+.aqi-circle {
+    height: 210px;
+    width: 210px;
+
+    margin: 10px auto;
+
+    border-radius: 50%;
+
+    border: 18px solid #00a65a;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+
+.aqi-circle span {
+    font-size: 58px;
+
+    font-weight: 800;
+
+    color: #0057a8;
+}
+
+
+.aqi-circle small {
+    color: #64748b;
+}
+
+
+.status {
+    display: inline-block;
+
+    color: #fff;
+
+    padding: 8px 18px;
+
+    border-radius: 30px;
+
+    font-weight: 800;
+}
+
+
+.message {
+    min-height: 48px;
+
+    margin: 14px 0;
+
+    color: #475569;
+
+    line-height: 1.5;
+}
+
+
+.environment {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+}
+
+
+.environment div {
+    background: #f5f9fc;
+
+    padding: 12px;
+
+    border-radius: 10px;
+}
+
+
+.environment b,
+.environment span {
+    display: block;
+}
+
+
+.environment span {
+    font-size: 12px;
+
+    color: #64748b;
+}
+
+
+.station-info {
+    background: #f7fafc;
+
+    padding: 12px;
+
+    margin-top: 14px;
+
+    border-radius: 10px;
+
+    text-align: left;
+
+    line-height: 1.8;
+}
+
+
+.primary-wide {
+    width: 100%;
+
+    margin-top: 15px;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+    background: #0f766e;
+
+    color: #fff;
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+
+.primary-wide:hover {
+    background: #0d665f;
+}
+
+
+/* =====================================================
+   SMART GRID
+===================================================== */
+
+.smart-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 16px;
+
+    margin: 0 3% 20px;
+}
+
+
+.smart-card {
+    background: #fff;
+
+    border-radius: 18px;
+
+    padding: 18px;
+
+    box-shadow:
+        0 5px 18px rgba(18, 48, 65, 0.08);
+
+    min-height: 185px;
+}
+
+
+.smart-title {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 14px;
+
+    font-weight: 800;
+}
+
+
+.smart-title small {
+    font-size: 11px;
+
+    color: #64748b;
+
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   AIRSAFE SCORE
+===================================================== */
+
+.score-row {
+    display: flex;
+
+    align-items: end;
+
+    gap: 10px;
+}
+
+
+.score-row strong {
+    font-size: 50px;
+
+    color: #0057a8;
+}
+
+
+.score-row span {
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+
+.progress {
+    height: 10px;
+
+    background: #e8eef3;
+
+    border-radius: 99px;
+
+    margin-top: 10px;
+
+    overflow: hidden;
+}
+
+
+.progress i {
+    display: block;
+
+    height: 100%;
+
+    width: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ef4444,
+            #f59e0b,
+            #16a34a
+        );
+
+    border-radius: 99px;
+
+    transition: width 0.5s;
+}
+
+
+/* =====================================================
+   SENSOR HEALTH
+===================================================== */
+
+.health-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+}
+
+
+.health-grid div {
+    background: #f6fafc;
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+    text-align: center;
+}
+
+
+.health-grid b {
+    display: block;
+
+    font-size: 24px;
+
+    color: #0f766e;
+}
+
+
+.health-grid span {
+    font-size: 12px;
+
+    color: #64748b;
+}
+
+
+.overall-health {
+    margin-top: 12px;
+
+    color: #64748b;
+}
+
+
+.overall-health b {
+    color: #17202a;
+}
+
+
+/* =====================================================
+   SMART CONTENT
+===================================================== */
+
+.smart-content {
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+.smart-item {
+    padding: 9px;
+
+    border-radius: 10px;
+
+    margin-bottom: 7px;
+}
+
+
+.smart-item b,
+.smart-item span,
+.smart-item small {
+    display: block;
+}
+
+
+.smart-item.danger {
+    background: #fff2f2;
+
+    border-left: 4px solid #ef4444;
+}
+
+
+.smart-item.warn {
+    background: #fff8e8;
+
+    border-left: 4px solid #f59e0b;
+}
+
+
+.ok-state {
+    background: #effaf3;
+
+    color: #16803a;
+
+    padding: 11px;
+
+    border-radius: 10px;
+}
+
+
+/* =====================================================
+   TWO COLUMN
+===================================================== */
+
+.two-col {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+
+    margin: 0 3% 20px;
+}
+
+
+.two-col .card {
+    margin: 0;
+}
+
+
+.mini-label {
+    font-size: 12px;
+
+    color: #64748b;
+}
+
+
+/* =====================================================
+   BEST TIME
+===================================================== */
+
+.time-list {
+    display: grid;
+
+    gap: 9px;
+}
+
+
+.time-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    background: #f6fafc;
+
+    padding: 13px;
+
+    border-radius: 11px;
+}
+
+
+.time-row span {
+    color: #64748b;
+}
+
+
+/* =====================================================
+   EXPLAIN AQI
+===================================================== */
+
+.explanation {
+    background: #f6fafc;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    min-height: 130px;
+
+    line-height: 1.5;
+}
+
+
+.explain-main {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 8px;
+}
+
+
+.explain-main b {
+    font-size: 28px;
+
+    color: #0057a8;
+}
+
+
+.status-mini {
+    color: #fff;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.trend-chip {
+    display: inline-block;
+
+    background: #e8f2ff;
+
+    color: #1e40af;
+
+    padding: 6px 9px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    margin-top: 8px;
+}
+
+
+/* =====================================================
+   GRAPH
+===================================================== */
+
+.chart-wrap {
+    height: 360px;
+
+    position: relative;
+}
+
+
+/* =====================================================
+   CLEAN AIR ROUTE
+===================================================== */
+
+.route-form {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr auto;
+
+    gap: 10px;
+}
+
+
+.route-form input:focus,
+.chat-form input:focus,
+.selectors select:focus {
+    outline: 2px solid #bae6fd;
+
+    border-color: #0284c7;
+}
+
+
+.route-result {
+    margin-top: 15px;
+}
+
+
+.route-best {
+    background: #ecfdf5;
+
+    border: 1px solid #a7f3d0;
+
+    border-radius: 13px;
+
+    padding: 15px;
+}
+
+
+.route-best span,
+.route-best b,
+.route-best small {
+    display: block;
+}
+
+
+.route-best b {
+    font-size: 24px;
+
+    color: #047857;
+
+    margin: 4px 0;
+}
+
+
+.route-note {
+    font-size: 11px;
+
+    color: #64748b;
+
+    margin-top: 8px;
+}
+
+
+.error {
+    color: #b91c1c;
+}
+
+
+/* =====================================================
+   AI ASSISTANT
+===================================================== */
+
+.ai-card {
+    min-height: 390px;
+}
+
+
+.chat-messages {
+    height: 240px;
+
+    overflow-y: auto;
+
+    background: #f5f8fb;
+
+    border-radius: 12px;
+
+    padding: 12px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.bot-msg,
+.user-msg {
+    max-width: 88%;
+
+    padding: 10px 12px;
+
+    border-radius: 12px;
+
+    line-height: 1.4;
+
+    font-size: 13px;
+}
+
+
+.bot-msg {
+    background: #e4f2ff;
+
+    align-self: flex-start;
+}
+
+
+.user-msg {
+    background: #0077b6;
+
+    color: #fff;
+
+    align-self: flex-end;
+}
+
+
+.chat-form {
+    display: grid;
+
+    grid-template-columns:
+        1fr auto;
+
+    gap: 8px;
+
+    margin-top: 10px;
+}
+
+
+.quick-questions {
+    display: flex;
+
+    gap: 7px;
+
+    margin-top: 8px;
+
+    flex-wrap: wrap;
+}
+
+
+.quick-questions button {
+    border: 1px solid #cbd5e1;
+
+    background: #fff;
+
+    padding: 6px 9px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+}
+
+
+.quick-questions button:hover {
+    background: #f1f5f9;
+}
+
+
+/* =====================================================
+   COMPARISON
+===================================================== */
+
+.compare-list {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 7px;
+
+    max-height: 190px;
+
+    overflow-y: auto;
+
+    margin-bottom: 12px;
+
+    padding: 4px;
+}
+
+
+.compare-list label {
+    font-size: 13px;
+
+    cursor: pointer;
+
+    padding: 5px;
+}
+
+
+.compare-list label:hover {
+    background: #f4f8fb;
+
+    border-radius: 6px;
+}
+
+
+.compare-list input {
+    margin-right: 5px;
+}
+
+
+.card table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+}
+
+
+.card th {
+    background: #0077b6;
+
+    color: #fff;
+
+    padding: 10px;
+}
+
+
+.card td {
+    padding: 9px;
+
+    border-bottom: 1px solid #ddd;
+
+    text-align: center;
+}
+
+
+.card tr:hover td {
+    background: #f5f9fc;
+}
+
+
+/* =====================================================
+   ALERTS
+===================================================== */
+
+.alert {
+    border-left: 4px solid #f44336;
+
+    background: #fff7f7;
+
+    padding: 10px;
+
+    margin-bottom: 8px;
+
+    border-radius: 5px;
+}
+
+
+.alert span,
+.alert small {
+    display: block;
+
+    color: #64748b;
+
+    margin-top: 3px;
+}
+
+
+.alert p {
+    margin-top: 6px;
+
+    line-height: 1.4;
+}
+
+
+/* =====================================================
+   MAP MARKERS
+===================================================== */
+
+.aqi-marker div {
+    border-radius: 50%;
+
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #fff;
+
+    font-weight: 800;
+
+    border: 3px solid #fff;
+
+    box-shadow:
+        0 2px 7px rgba(0, 0, 0, 0.32);
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.small-btn {
+    width: auto;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    background: #075985;
+
+    color: #fff;
+
+    text-align: center;
+
+    padding: 18px;
+
+    margin-top: 20px;
+}
+
+
+/* =====================================================
+   RESPONSIVE - TABLET
+===================================================== */
+
+@media (max-width: 1100px) {
+
+    .top-section,
+    .two-col {
+        grid-template-columns: 1fr;
+    }
+
+
+    .smart-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .selectors {
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .national-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE - MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .topbar {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .hero {
+        display: block;
+    }
+
+
+    .clock {
+        margin-top: 10px;
+    }
+
+
+    .national-grid,
+    .selectors,
+    .smart-grid,
+    .route-form {
+        grid-template-columns: 1fr;
+    }
+
+
+    .map-box #map {
+        height: 430px;
+    }
+
+
+    .environment {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+
+    .compare-list {
+        grid-template-columns: 1fr;
+    }
+
+
+    .brand-text h1 {
+        font-size: 23px;
+    }
+
+
+    .nav {
+        gap: 15px;
+    }
+
+
+    .map-actions {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .aqi-circle {
+        width: 180px;
+        height: 180px;
+    }
+
+
+    .aqi-circle span {
+        font-size: 48px;
+    }
+
+
+    .card {
+        padding: 16px;
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media (max-width: 450px) {
+
+    .brand-mark {
+        width: 64px;
+        height: 64px;
+    }
+
+
+    .brand-text h1 {
+        font-size: 20px;
+    }
+
+
+    .brand-text p {
+        font-size: 12px;
+    }
+
+
+    .hero h2 {
+        font-size: 24px;
+    }
+
+
+    .environment {
+        grid-template-columns: 1fr;
+    }
+
+
+    .health-grid {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+
+    .section-head {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+}

@@ -1,0 +1,37 @@
+AIR INDIA - PAN-INDIA DATABASE
+
+The upgraded project uses SQLite by default, so it runs without installing MySQL.
+Database file: air_quality.db (created automatically on first run).
+
+Tables:
+users
+states
+cities
+stations
+readings
+alerts
+
+Demo admin:
+Email: admin@airindia.local
+Password: admin123
+
+For production, change app.secret_key and the admin password.
+
+IoT POST endpoint:
+POST /data
+JSON example:
+{
+  "station_id": 1,
+  "pm25": 55.2,
+  "pm10": 88.4,
+  "no2": 32,
+  "so2": 12,
+  "co": 0.8,
+  "o3": 44,
+  "mq2": 300,
+  "mq3": 250,
+  "mq135": 500,
+  "temperature": 29.5,
+  "humidity": 63,
+  "wind_speed": 2.4
+}
